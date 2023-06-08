@@ -1,8 +1,8 @@
 const express = require("express"); //Serving frontend
 const mongodb = require("mongoose"); //DataBase
 var bodyparser = require("body-parser");
-const {seatAllocation} = require('./Utils/seatAllocation');
-const {getAllSeatNumbers} = require('./Repository/getData');
+const {seatAllocation, oneTimeRun, reset} = require('./Utils/seatAllocation');
+const {getAllSeatNumbers, getAllData} = require('./Repository/getData');
 const {addIntoUser} = require('./Repository/addData');
 const {removeFullData} =  require('./Repository/deleteData');
 const path = require('path');
@@ -12,7 +12,9 @@ mongodb
 		"mongodb+srv://yash_computer:forgetme111@cluster0.dxmvj.mongodb.net/trainReservation",
 		{ useNewUrlParser: true, useUnifiedTopology: true }
 	)
-	.then(() => console.log(" WORKING"))
+	.then(() => {console.log(" WORKING") 
+    oneTimeRun()
+})
 	.catch((error) => console.log("NOT WORKING ", +error));
 
 
@@ -28,10 +30,15 @@ server.use(express.static(path.join(__dirname, 'build')));
 
 server.delete("/deleteWholeData", function (req, res) {
     removeFullData();
+    reset();
     res.sendStatus(200)
 });
 
-server.get("/getFullData", function (req, res) {
+server.get("/getFullData", async function (req, res) {
+    const data = await getAllData();
+    console.log(data);
+    res.json(data)
+
 
 });
 
