@@ -1,3 +1,6 @@
+const {getAllSeatNumbers} = require("../Repository/getData");
+
+
 var seats = [
     [0, 0, 0, 0, 0, 0, 0, 7],
     [0, 0, 0, 0, 0, 0, 0, 7],
@@ -117,11 +120,28 @@ function allocationSeats(numberOfSeats){
 
 }
 
+function reset(){
+    var resetSeats = [
+        [0, 0, 0, 0, 0, 0, 0, 7],
+        [0, 0, 0, 0, 0, 0, 0, 7],
+        [0, 0, 0, 0, 0, 0, 0, 7],
+        [0, 0, 0, 0, 0, 0, 0, 7],
+        [0, 0, 0, 0, 0, 0, 0, 7],
+        [0, 0, 0, 0, 0, 0, 0, 7],
+        [0, 0, 0, 0, 0, 0, 0, 7],
+        [0, 0, 0, 0, 0, 0, 0, 7],
+        [0, 0, 0, 0, 0, 0, 0, 7],
+        [0, 0, 0, 0, 0, 0, 0, 7],
+        [0, 0, 0, 0, 0, 0, 0, 7],
+        [0, 0, 0, 3]
+    ]
+    seats = resetSeats;
+
+}
 
 
-function oneTimeRun(){
-    console.log("Running oneTimeRun")
-    const filledSeatData = ["A1", 'B4', 'B5', 'B6','B7', 'C4', 'C5', 'C6','C7']
+async function oneTimeRun(){
+    const filledSeatData = await getAllSeatNumbers()
 
     fillSeatsArrayFromDB(filledSeatData);
 }
@@ -141,9 +161,9 @@ function seatAllocation(NumberOfSeats){
     return allocationSeats(NumberOfSeats)
 
 }
-oneTimeRun();
-
 
 module.exports = {
-    seatAllocation
+    seatAllocation,
+    oneTimeRun,
+    reset
 }

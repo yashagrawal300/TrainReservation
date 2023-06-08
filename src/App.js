@@ -2,6 +2,23 @@
 import './App.css';
 import { useState } from 'react';
 import axios from 'axios';
+
+function renderItem(data){
+  const renderedItem = [];
+  data.forEach(element => {
+    renderedItem.push(
+      <tr style={{"border": "1px solid black"}}>
+        {element}
+      </tr>
+    )
+    
+  });
+
+  return renderedItem;
+}
+
+
+
 function App() {
   const [data, setData] = useState(null);
   const [inputValue, setInputValue] = useState('');
@@ -21,8 +38,17 @@ function App() {
         "Name": inputName,
         "Seats": inputValue
     });
-    console.log("response", response.data);
-      setData(response.data.allocatedSeatNumber);
+
+
+      setData(renderItem(response.data.allocatedSeatNumber));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteData = async () => {
+    try {
+      const response = await axios.delete('http://localhost:8000/deleteWholeData');
     } catch (error) {
       console.error(error);
     }
@@ -39,7 +65,11 @@ function App() {
 
     <input type={"button"} value='Get seats' onClick={fetchData}/>
     <p/>
-    {data}
+    <input type={"button"} value='Delete All Seats' onClick={deleteData}/>
+<p/>
+<table cellPadding={10} cellSpacing={10} border={"1px solid black"}>
+{data}
+</table>
 
     </div>
 
