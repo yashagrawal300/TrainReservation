@@ -50,12 +50,21 @@ server.post("/addData", urlencodedParser, function (req, res) {
     //get the data from DB --> All the seatId and pass it on the 
     //const seatNumbers = getAllSeatNumbers();
     const allocatedSeatNumber = seatAllocation(numberOfSeats);
-    addIntoUser(name, allocatedSeatNumber, date)
+    if(allocatedSeatNumber.length > 0){
+        addIntoUser(name, allocatedSeatNumber, date)
+        res.json({
+            allocatedSeatNumber: allocatedSeatNumber
+        })
     
-    res.json({
-        allocatedSeatNumber: allocatedSeatNumber
-    })
-
+    }
+    else{
+        res.json({
+            allocatedSeatNumber: ["Not allowed"]
+        })
+    
+    }
+    
+    
 
 });
 

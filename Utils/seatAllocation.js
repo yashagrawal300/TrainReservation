@@ -62,7 +62,7 @@ function bruteForce(numberOfSeats){
 
     const totalSeats = getTotalEmptySeats();
     if(totalSeats< numberOfSeats){
-        return ["Less Seats Available"]
+        return []
     }
 
 
@@ -154,7 +154,7 @@ function seatAllocation(NumberOfSeats){
     console.log(totalSeatsLeft, NumberOfSeats, typeof NumberOfSeats);
 
     if(NumberOfSeats>7 || totalSeatsLeft<NumberOfSeats){
-        return ["Not allowed"]
+        return []
     }
 
     console.log(seats);
