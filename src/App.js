@@ -34,7 +34,7 @@ function App() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/addData', {
+      const response = await axios.post('https://trainreservation.herokuapp.com/addData', {
         "Name": inputName,
         "Seats": inputValue
     });
@@ -48,7 +48,7 @@ function App() {
 
   const deleteData = async () => {
     try {
-      const response = await axios.delete('http://localhost:8000/deleteWholeData');
+      const response = await axios.delete('https://trainreservation.herokuapp.com/deleteWholeData');
     } catch (error) {
       console.error(error);
     }
